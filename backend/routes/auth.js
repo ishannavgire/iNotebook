@@ -16,7 +16,7 @@ router.post("/createuser", [body("name", "Name must be atleast 3 characters").is
   }
 
   try {
-    //Check user with email already exists in database
+    //Check user with email already exists
     let user = await User.findOne({ email: req.body.email });
     if (user) {
       return res.status(400).json(`{ error: "User with email ${req.body.email} already exists." }`);
@@ -39,9 +39,44 @@ router.post("/createuser", [body("name", "Name must be atleast 3 characters").is
       },
     };
     const authToken = jwt.sign(data, JWT_SECRET);
-    return res.status(201).json({authToken});
+    return res.status(201).json({ authToken });
   } catch (error) {
-    return res.status(500).json(`{ error: ${error} }`);
+    return res.status(500).json({ error: "Internal server error." });
+  }
+});
+
+//Authenticate a User using: POST "/api/auth/login". No login required.
+router.post("/login", [body("email", "Enter valid email address").isEmail(), body("password", "Password cannot be blank").exists()], async (req, res) => {
+  // Finds the validation errors in this request
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  try {
+    const { email, password } = req.body;
+    //Check user with email already exists
+    let user = await User.findOne({ email: email });
+    if (!user) {
+      return res.status(400).json({ error: "Please login with valid credentials." });
+    }
+
+    //validate password
+    const passwordCompare = await bcrypt.compare(password, user.password);
+    if (!passwordCompare) {
+      return res.status(400).json({ error: "Please login with valid credentials." });
+    }
+
+    //Generate JWT token
+    const data = {
+      user: {
+        id: user.id,
+      },
+    };
+    const authToken = jwt.sign(data, JWT_SECRET);
+    return res.status(200).json({ authToken });
+  } catch (error) {
+    return res.status(500).json(`{ error: Internal server error.}`);
   }
 });
 
