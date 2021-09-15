@@ -4,7 +4,7 @@ const connecttoMongo = require("./db.js");
 
 connecttoMongo();
 const app = express();
-const port = 3000;
+const port = 5000;
 
 //Add middleware to work with request
 app.use(express.json());
