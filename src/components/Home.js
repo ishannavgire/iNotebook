@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import noteContext from "../context/notes/noteContext";
+import Notes from "./Notes";
 
 export const Home = () => {
   const notes = useContext(noteContext);
@@ -60,16 +61,7 @@ export const Home = () => {
           Submit
         </button>
       </form>
-      <div className="container my-4">
-        <h1>Your Notes</h1>
-        {notes.notes.map((note) => {
-          return (
-            <div key={note._id}>
-              <h5>{note.tag}</h5>
-            </div>
-          );
-        })}
-      </div>
+      <Notes></Notes>
     </div>
   );
 };
