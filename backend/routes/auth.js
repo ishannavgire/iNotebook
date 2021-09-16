@@ -8,7 +8,7 @@ const fetchuser = require("../middleware/fetchuser");
 
 const JWT_SECRET = "never$reveal#secret";
 
-//Create a User using: POST "/api/auth/createuser". No login required.
+//ROUTE 1: Create a User using: POST "/api/auth/createuser". No login required.
 router.post("/createuser", [body("name", "Name must be atleast 3 characters").isLength({ min: 3 }), body("email", "Enter valid email address").isEmail(), body("password", "Password must be atleast 8 characters").isLength({ min: 8 })], async (req, res) => {
   // Finds the validation errors in this request
   const errors = validationResult(req);
@@ -46,7 +46,7 @@ router.post("/createuser", [body("name", "Name must be atleast 3 characters").is
   }
 });
 
-//Authenticate a User using: POST "/api/auth/login". No login required.
+//ROUTE 2: Authenticate a User using: POST "/api/auth/login". No login required.
 router.post("/login", [body("email", "Enter valid email address").isEmail(), body("password", "Password cannot be blank").exists()], async (req, res) => {
   // Finds the validation errors in this request
   const errors = validationResult(req);
@@ -83,7 +83,7 @@ router.post("/login", [body("email", "Enter valid email address").isEmail(), bod
   }
 });
 
-//Get a User using: POST "/api/auth/user". Login required.
+//ROUTE 3: Get a User using: POST "/api/auth/user". Login required.
 router.post("/user", fetchuser, async (req, res) => {
   try {
     userId = req.user.id;

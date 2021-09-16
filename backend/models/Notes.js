@@ -3,6 +3,10 @@ const { Schema } = mongoose;
 
 //Schema complements MongoDb collection. Provides structire for MongoDb documents.
 const NotesSchema = new Schema({
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "user",
+  },
   title: {
     type: String,
     required: true,
