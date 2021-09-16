@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import { Home } from "./components/Home";
 import About from "./components/About";
 import NoteState from "./context/notes/NoteState";
+import Alert from "./components/Alert";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <div>
           <NoteState>
             <Navbar />
+            <Alert message="iNotebook is a great app!"></Alert>
             <div className="container">
               <Switch>
                 <Route exact path="/about">
