@@ -3,7 +3,7 @@ import noteContext from "../context/notes/noteContext";
 import Notes from "./Notes";
 
 export const Home = () => {
-  const notes = useContext(noteContext);
+  const context = useContext(noteContext);
 
   const getNotes = async () => {
     let url = "http://localhost:5000/api/notes/fetchallnotes";
@@ -19,8 +19,7 @@ export const Home = () => {
     };
     let data = await fetch(new URL(url), options);
     let parseData = await data.json();
-    console.log(parseData);
-    notes.setNotes(parseData);
+    context.setNotes(parseData);
   };
 
   useEffect(() => {
@@ -32,36 +31,7 @@ export const Home = () => {
 
   return (
     <div>
-      <div className="container my-3">
-        <h1>Add a Note</h1>
-      </div>
-      <form className="container my-3">
-        <div className="mb-3">
-          <label htmlFor="exampleInputEmail1" className="form-label">
-            Email address
-          </label>
-          <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
-          <div id="emailHelp" className="form-text">
-            We'll never share your email with anyone else.
-          </div>
-        </div>
-        <div className="mb-3">
-          <label htmlFor="exampleInputPassword1" className="form-label">
-            Password
-          </label>
-          <input type="password" className="form-control" id="exampleInputPassword1" />
-        </div>
-        <div className="mb-3 form-check">
-          <input type="checkbox" className="form-check-input" id="exampleCheck1" />
-          <label className="form-check-label" htmlFor="exampleCheck1">
-            Check me out
-          </label>
-        </div>
-        <button type="submit" className="btn btn-primary">
-          Submit
-        </button>
-      </form>
-      <Notes></Notes>
+      <Notes />
     </div>
   );
 };

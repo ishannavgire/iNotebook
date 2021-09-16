@@ -4,7 +4,7 @@ const Alert = (props) => {
   const { message } = props;
 
   return (
-    <div class="alert alert-primary" role="alert">
+    <div className="alert alert-primary" role="alert">
       {message}
     </div>
   );
