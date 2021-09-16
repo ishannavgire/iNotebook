@@ -12,7 +12,7 @@ function App() {
         <div>
           <NoteState>
             <Navbar />
-            <div className="scrollable" style={{ width: "100%", top: "500px", maxHeight: "1000px", overflow: "auto" }}>
+            <div className="container">
               <Switch>
                 <Route exact path="/about">
                   <About />
