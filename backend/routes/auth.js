@@ -59,12 +59,14 @@ router.post("/login", [body("email", "Enter valid email address").isEmail(), bod
     //Check user with email already exists
     let user = await User.findOne({ email: email });
     if (!user) {
+      console.log(user);
       return res.status(400).json({ error: "Please login with valid credentials." });
     }
 
     //validate password
     const passwordCompare = await bcrypt.compare(password, user.password);
     if (!passwordCompare) {
+      console.log(passwordCompare);
       return res.status(400).json({ error: "Please login with valid credentials." });
     }
 
@@ -83,16 +85,12 @@ router.post("/login", [body("email", "Enter valid email address").isEmail(), bod
 
 //Get a User using: POST "/api/auth/user". Login required.
 router.post("/user", fetchuser, async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
-  }
-
   try {
-    userId = req.user;
+    userId = req.user.id;
     const user = await User.findById(userId).select("-password");
     return res.status(200).json(user);
   } catch (error) {
+    console.log(error);
     return res.status(401).json({ error: "Please authenticate using a valid token." });
   }
 });
