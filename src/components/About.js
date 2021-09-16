@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import noteContext from "../context/noteContext";
+import noteContext from "../context/notes/noteContext";
 
 const About = () => {
   return <div>This is About</div>;
