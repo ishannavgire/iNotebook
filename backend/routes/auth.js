@@ -4,6 +4,7 @@ const User = require("../models/User");
 const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const fetchuser = require("../middleware/fetchuser");
 
 const JWT_SECRET = "never$reveal#secret";
 
@@ -77,6 +78,22 @@ router.post("/login", [body("email", "Enter valid email address").isEmail(), bod
     return res.status(200).json({ authToken });
   } catch (error) {
     return res.status(500).json(`{ error: Internal server error.}`);
+  }
+});
+
+//Get a User using: POST "/api/auth/user". Login required.
+router.post("/user", fetchuser, async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  try {
+    userId = req.user;
+    const user = await User.findById(userId).select("-password");
+    return res.status(200).json(user);
+  } catch (error) {
+    return res.status(401).json({ error: "Please authenticate using a valid token." });
   }
 });
 
