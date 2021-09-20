@@ -3,13 +3,13 @@ import noteContext from "../context/notes/noteContext";
 
 const AddNote = () => {
   const context = useContext(noteContext);
-  const { addNotes } = context;
+  const { addNote } = context;
 
   const [note, setNote] = useState({ title: "", description: "", tag: "default" });
 
   const handleClick = (e) => {
     e.preventDefault();
-    addNotes(note.title,note.description,note.tag);
+    addNote(note.title,note.description,note.tag);
   };
 
   const onChange = (e) => {
@@ -36,7 +36,7 @@ const AddNote = () => {
           <input type="text" className="form-control" id="description" name="description" onChange={onChange} />
         </div>
         <button type="submit" className="btn btn-primary" onClick={handleClick}>
-          Submit
+          Add Note
         </button>
       </form>
     </div>
