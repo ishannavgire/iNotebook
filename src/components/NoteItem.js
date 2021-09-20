@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import noteContext from "../context/notes/noteContext";
 
 const NoteItem = (props) => {
-  const { note } = props;
+  const { note, updateNote } = props;
   const context = useContext(noteContext);
   const { deleteNote, editNote } = context;
 
@@ -31,7 +31,8 @@ const NoteItem = (props) => {
               <i
                 className="far fa-edit"
                 onClick={() => {
-                  editNote(note._id, "Newtitle", "Newdescription", "Newtag");
+                  updateNote(note);
+                  // editNote(note._id, "Newtitle", "Newdescription", "Newtag");
                 }}
               ></i>
             </div>
