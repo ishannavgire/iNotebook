@@ -5,6 +5,7 @@ import React from "react";
 const NoteState = (props) => {
   const host = "http://localhost:5000";
   const [notes, setNotes] = useState([]);
+  const auth_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjE0MmQ2MWNjMTM1MzY1NTM0NmIwYTA2In0sImlhdCI6MTYzMTc3MzYxN30.BAG97f5OSHyfrGjCVvu1SHXbaAomUoPHIDGPd_HCRCo";
 
   const getNotes = async () => {
     let url = `${host}/api/notes/fetchallnotes`;
@@ -12,7 +13,7 @@ const NoteState = (props) => {
       method: "GET", // *GET, POST, PUT, DELETE, etc.
       headers: {
         "User-Agent": "Thunder Client (https://www.thunderclient.io)",
-        "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjE0MmQ2MWNjMTM1MzY1NTM0NmIwYTA2In0sImlhdCI6MTYzMTc3MzYxN30.BAG97f5OSHyfrGjCVvu1SHXbaAomUoPHIDGPd_HCRCo",
+        "auth-token": auth_token,
       },
     };
     let data = await fetch(new URL(url), options);
@@ -32,7 +33,7 @@ const NoteState = (props) => {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
       headers: {
         "Content-Type": "application/json",
-        "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjE0MmQ2MWNjMTM1MzY1NTM0NmIwYTA2In0sImlhdCI6MTYzMTc3MzYxN30.BAG97f5OSHyfrGjCVvu1SHXbaAomUoPHIDGPd_HCRCo",
+        "auth-token": auth_token,
       },
       body: JSON.stringify(data),
     };
@@ -53,7 +54,7 @@ const NoteState = (props) => {
       method: "PUT", // *GET, POST, PUT, DELETE, etc.
       headers: {
         "Content-Type": "application/json",
-        "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjE0MmQ2MWNjMTM1MzY1NTM0NmIwYTA2In0sImlhdCI6MTYzMTc3MzYxN30.BAG97f5OSHyfrGjCVvu1SHXbaAomUoPHIDGPd_HCRCo",
+        "auth-token": auth_token,
       },
       body: JSON.stringify(data),
     };
@@ -72,7 +73,7 @@ const NoteState = (props) => {
     const options = {
       method: "DELETE", // *GET, POST, PUT, DELETE, etc.
       headers: {
-        "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjE0MmQ2MWNjMTM1MzY1NTM0NmIwYTA2In0sImlhdCI6MTYzMTc3MzYxN30.BAG97f5OSHyfrGjCVvu1SHXbaAomUoPHIDGPd_HCRCo",
+        "auth-token": auth_token,
       },
     };
     let response = await fetch(new URL(url), options);

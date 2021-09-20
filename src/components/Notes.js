@@ -5,9 +5,10 @@ import AddNote from "./AddNote";
 
 const Notes = () => {
   const context = useContext(noteContext);
-  const { notes, getNotes } = context;
+  const { notes, getNotes, editNote } = context;
 
   const [note, setNote] = useState({ edit_title: "", edit_description: "", edit_tag: "" });
+  const [currentNoteID, setCurrentNoteID] = useState(null);
 
   useEffect(() => {
     getNotes();
@@ -17,11 +18,14 @@ const Notes = () => {
   const updateNote = (currentNote) => {
     ref.current.click();
     setNote({ edit_title: currentNote.title, edit_description: currentNote.description, edit_tag: currentNote.tag });
+    setCurrentNoteID(currentNote._id);
   };
 
   const handleClick = (e) => {
     e.preventDefault();
     console.log("Updated Note = " + note.edit_description);
+    editNote(currentNoteID, note.edit_title, note.edit_description, note.edit_tag);
+    ref.current.click();
   };
 
   const ref = useRef(null);
