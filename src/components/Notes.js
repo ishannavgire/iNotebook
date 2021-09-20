@@ -7,8 +7,10 @@ const Notes = () => {
   const context = useContext(noteContext);
   const { notes, getNotes, editNote } = context;
 
-  const [note, setNote] = useState({ edit_title: "", edit_description: "", edit_tag: "" });
-  const [currentNoteID, setCurrentNoteID] = useState(null);
+  const [note, setNote] = useState({ id: "", edit_title: "", edit_description: "", edit_tag: "" });
+
+  const ref = useRef(null);
+  const refClose = useRef(null);
 
   useEffect(() => {
     getNotes();
@@ -17,18 +19,15 @@ const Notes = () => {
 
   const updateNote = (currentNote) => {
     ref.current.click();
-    setNote({ edit_title: currentNote.title, edit_description: currentNote.description, edit_tag: currentNote.tag });
-    setCurrentNoteID(currentNote._id);
+    setNote({ id: currentNote._id, edit_title: currentNote.title, edit_description: currentNote.description, edit_tag: currentNote.tag });
   };
 
   const handleClick = (e) => {
     e.preventDefault();
     console.log("Updated Note = " + note.edit_description);
-    editNote(currentNoteID, note.edit_title, note.edit_description, note.edit_tag);
-    ref.current.click();
+    editNote(note.id, note.edit_title, note.edit_description, note.edit_tag);
+    refClose.current.click();
   };
-
-  const ref = useRef(null);
 
   const onChange = (e) => {
     //Use spread operator
@@ -75,7 +74,7 @@ const Notes = () => {
               </form>
             </div>
             <div className="modal-footer">
-              <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">
+              <button type="button" className="btn btn-secondary" ref={refClose} data-bs-dismiss="modal">
                 Close
               </button>
               <button type="button" className="btn btn-primary" onClick={handleClick}>

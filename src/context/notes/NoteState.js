@@ -18,15 +18,12 @@ const NoteState = (props) => {
     };
     let data = await fetch(new URL(url), options);
     let parseData = await data.json();
-    console.log(parseData);
     setNotes(parseData);
   };
 
   //Add Note
   const addNote = async (title, description, tag) => {
     //Add API call
-    console.log("Adding a new Note.");
-
     let url = `${host}/api/notes/addnote`;
     let data = { title: title, description: description, tag: tag };
     const options = {
@@ -41,7 +38,6 @@ const NoteState = (props) => {
 
     const parsedRes = await response.json();
 
-    console.log(parsedRes);
     await getNotes();
   };
 
@@ -61,8 +57,6 @@ const NoteState = (props) => {
     let response = await fetch(new URL(url), options);
 
     const parsedRes = await response.json();
-
-    console.log(parsedRes);
     await getNotes();
   };
 
@@ -80,8 +74,6 @@ const NoteState = (props) => {
 
     const parsedRes = await response.json();
 
-    console.log(parsedRes);
-    console.log("Note with ID:" + id + " deleted!");
     await getNotes();
   };
 
