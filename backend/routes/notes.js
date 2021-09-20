@@ -16,7 +16,7 @@ router.get("/fetchallnotes", fetchuser, async (req, res) => {
 });
 
 //ROUTE 2: Add a note using: POST "/api/notes/addnote". Login required.
-router.post("/addnote", fetchuser, [body("title", "Title must be atleast 3 characters").isLength({ min: 3 }), body("description", "Description must be atleast 5 characters").isLength({ min: 5 })], async (req, res) => {
+router.post("/addnote", fetchuser, [body("title", "Title must be atleast 3 characters").isLength({ min: 5 }), body("description", "Description must be atleast 5 characters").isLength({ min: 5 })], async (req, res) => {
   // Finds the validation errors in this request
   const errors = validationResult(req);
   if (!errors.isEmpty()) {

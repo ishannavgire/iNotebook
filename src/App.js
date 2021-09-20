@@ -6,14 +6,14 @@ import About from "./components/About";
 import NoteState from "./context/notes/NoteState";
 import Alert from "./components/Alert";
 
-function App() {
+const App = () => {
   return (
     <>
       <Router>
         <div>
           <NoteState>
             <Navbar />
-            <Alert message="iNotebook is a great app!"></Alert>
+            <Alert message="This is alert!" />
             <div className="container">
               <Switch>
                 <Route exact path="/about">
@@ -30,6 +30,6 @@ function App() {
       </Router>
     </>
   );
-}
+};
 
 export default App;

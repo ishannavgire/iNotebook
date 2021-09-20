@@ -57,19 +57,19 @@ const Notes = () => {
                   <label htmlFor="edit_title" className="form-label">
                     Title
                   </label>
-                  <input type="text" className="form-control" id="edit_title" name="edit_title" value={note.edit_title} onChange={onChange} />
+                  <input type="text" className="form-control" id="edit_title" name="edit_title" minLength={5} required value={note.edit_title} onChange={onChange} />
                 </div>
                 <div className="mb-3">
                   <label htmlFor="edit_description" className="form-label">
                     Description
                   </label>
-                  <input type="text" className="form-control" id="edit_description" name="edit_description" value={note.edit_description} onChange={onChange} />
+                  <input type="text" className="form-control" id="edit_description" name="edit_description" minLength={5} required value={note.edit_description} onChange={onChange} />
                 </div>
                 <div className="mb-3">
                   <label htmlFor="edit_tag" className="form-label">
                     Tag
                   </label>
-                  <input type="text" className="form-control" id="edit_tag" name="edit_tag" value={note.edit_tag} onChange={onChange} />
+                  <input type="text" className="form-control" id="edit_tag" name="edit_tag" minLength={5} value={note.edit_tag} onChange={onChange} />
                 </div>
               </form>
             </div>
@@ -77,7 +77,7 @@ const Notes = () => {
               <button type="button" className="btn btn-secondary" ref={refClose} data-bs-dismiss="modal">
                 Close
               </button>
-              <button type="button" className="btn btn-primary" onClick={handleClick}>
+              <button type="button" className="btn btn-primary" disabled={note.edit_title.length < 5 || note.edit_description.length < 5} onClick={handleClick}>
                 Update Note
               </button>
             </div>
@@ -85,8 +85,9 @@ const Notes = () => {
         </div>
       </div>
 
-      <div className="row my-4">
+      <div className="row my-3">
         <h1>Your Notes</h1>
+        <div className=" my-3">{notes.length === 0 && "No Notes to display."}</div>
         {notes.map((note) => {
           return <NoteItem key={note ? note._id : Math.random()} updateNote={updateNote} note={note}></NoteItem>;
         })}

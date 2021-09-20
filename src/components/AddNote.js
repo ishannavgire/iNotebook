@@ -32,21 +32,21 @@ const AddNote = () => {
           <label htmlFor="title" className="form-label">
             Title
           </label>
-          <input type="text" className="form-control" id="title" name="title" onChange={onChange} />
+          <input type="text" className="form-control" id="title" name="title" minLength={5} required onChange={onChange} />
         </div>
         <div className="mb-3">
           <label htmlFor="description" className="form-label">
             Description
           </label>
-          <input type="text" className="form-control" id="description" name="description" onChange={onChange} />
+          <input type="text" className="form-control" id="description" minLength={5} required name="description" onChange={onChange} />
         </div>
         <div className="mb-3">
           <label htmlFor="tag" className="form-label">
             Tag
           </label>
-          <input type="text" className="form-control" id="tag" name="tag" onChange={onChange} />
+          <input type="text" className="form-control" id="tag" name="tag" minLength={5} onChange={onChange} />
         </div>
-        <button type="submit" className="btn btn-primary" onClick={handleClick}>
+        <button type="submit" className="btn btn-primary" disabled={note.title.length < 5 || note.description.length < 5} onClick={handleClick}>
           Add Note
         </button>
       </form>
